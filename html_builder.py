@@ -125,6 +125,11 @@ class HTMLNode:
         Appends a node to self.children
         Allows for fancy append()/append_to() chaining.
         """
+        
+        # Do not allow anything but HTMLNodes to be appeneded.
+        if not isinstance(child, HTMLNode):
+            return self  # for chaining
+        
         if not any((isinstance(child, HTMLText), isinstance(child, HTMLComment))):
             # Set flag to know this node contains more than just comments or text.
             # Used for rendering.
