@@ -126,7 +126,7 @@ class HTMLNode:
         Allows for fancy append()/append_to() chaining.
         """
         
-        # Do not allow anything but HTMLNodes to be appeneded.
+        # Do not allow anything but HTMLNodes to be appended.
         if not isinstance(child, HTMLNode):
             return self  # for chaining
         
@@ -173,7 +173,7 @@ class HTMLNode:
                     ]
                 )
             else:
-                # if only text and comments then we don't want newlines, just a space, we want to inline it
+                # if only text and comments then we don't want newlines, just a space; we want to inline it
                 return " ".join([child.render_text() for child in self.children])
         return ""
 
@@ -209,6 +209,7 @@ class HTMLNode:
 class HTMLText(HTMLNode):
     """
     Special node that renders out as text.
+    
     Use for 'inner' text that needs to be in the append list.
     """
 
@@ -265,20 +266,19 @@ class HTMLDoc(HTMLNode):
 
 
 if __name__ == "__main__":
-    import html_builder as hb
 
     # div example
-    div_node = hb.HTMLNode("div")
+    div_node = HTMLNode("div")
     print(div_node.render_text())
 
     # append chain example
     # one way to make a node and add text
-    parent = hb.HTMLNode("div")
+    parent = HTMLNode("div")
     parent.add_text("parent")
     # another way
-    child = hb.HTMLNode("div").add_text("child")
+    child = HTMLNode("div").add_text("child")
     # make gandchild node and append to child and append child to parent in one line
-    hb.HTMLNode("div").add_text("grandchild").append_to(child).append_to(parent)
+    HTMLNode("div").add_text("grandchild").append_to(child).append_to(parent)
 
     # same appending done from top down:
     # parent.append(child.append(hb.HTMLNode('div').add_text('grandchild')))
@@ -292,7 +292,7 @@ if __name__ == "__main__":
     print(parent.render_text(indent="  "))
 
     # class chaining example
-    subtitle = hb.HTMLNode("p")
+    subtitle = HTMLNode("p")
     subtitle.add_class("font-size-sm").add_class("font-color-muted").add_class(
         "font-transform-lower"
     )
@@ -304,8 +304,9 @@ if __name__ == "__main__":
     # add a title
     doc.title = "Document Title"
     # add a meta to the head
-    hb.HTMLNode("meta").add_attr("meta_key", "meta_value").append_to(doc.head)
+    HTMLNode("meta").add_attr("meta_key", "meta_value").append_to(doc.head)
+    HTMLComment('This is a comment').append_to(doc.head)
     # add a paragraph to the body
-    hb.HTMLNode("p").add_text("Paragraph text").append_to(doc.body)
+    HTMLNode("p").add_text("Paragraph text").append_to(doc.body)
     print(doc.render_text())
     # HTMLDoc is a one-shot object!  Re-rendering will cause duplicate children.
