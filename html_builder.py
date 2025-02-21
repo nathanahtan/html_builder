@@ -14,13 +14,10 @@ class HTMLNode:
         self.children: list[HTMLNode] = []
         self.parent: HTMLNode | None = None
 
-    def add_class(self, classs: str):
-        self.classes.add(classs)
-        return self
-
     def add_classes(self, classes: str):
         """
         Expect space separated string of classes.
+        Single class names also work.
         """
         for c in classes.split(" "):
             self.classes.add(c)
