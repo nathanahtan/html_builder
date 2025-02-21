@@ -53,8 +53,8 @@ Another reason for chaining is grouping attribute assignments together.  The `.a
 Say you are using a css framework and have a subtitle paragraph that needs three classes applied in order to set the font size, a muted color, and transform to lower case.  You also need to set some responsive width classes.  You could group all classes dealing with fonts to one line, and layout classes on another:
 ```python
 subtitle = hb.HTMLNode('p')
-subtitle.add_class('font-size-sm').add_class('font-color-muted').add_class('font-transform-lower')
-subtitle.add_class('width-400').add_class('max-width-full')
+subtitle.add_classes('font-size-sm').add_class('font-color-muted').add_class('font-transform-lower')
+subtitle.add_classes('width-400 max-width-full')
 ```
 
 Other functions that support chaining are:
@@ -62,7 +62,7 @@ Other functions that support chaining are:
 * add_text()
 * add_comment()
 
-After the nodes are built, call `render_text()` on the top or root node to get a string representation.  You can pass in an indent string (defaults to four spaces).  Use this as the body in your html response.
+After the nodes are built, call `render()` on the top or root node to get a string representation.  Use this as the body in your html response.
 
 
 #### Inheritence
